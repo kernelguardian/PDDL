@@ -204,9 +204,9 @@ class PDDLInterface:
         f.close()
         return True
 
-DOMAIN_FILE = "/workspaces/PDDL/domain-craft-bots.pddl"
-PROBLEM_FILE = "/workspaces/PDDL/problem.pddl"
-PLAN_FILE = "/workspaces/PDDL/plan.pddl"
+DOMAIN_FILE = "/workspaces/devcontainer/domain-craft-bots.pddl"
+PROBLEM_FILE = "/workspaces/devcontainer/problem.pddl"
+PLAN_FILE = "/workspaces/devcontainer/plan.pddl"
 
 if __name__ == '__main__':
     PDDLInterface.generatePlan(DOMAIN_FILE, PROBLEM_FILE, PLAN_FILE, verbose=True)
