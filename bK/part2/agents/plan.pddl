@@ -1,0 +1,8 @@
+0.000: (move a26 n0 n9)  [1.000]
+1.001: (start-building a26 n9)  [2.000]
+3.002: (move a26 n9 n0)  [1.000]
+4.003: (mine a26 n0 orange)  [1.000]
+5.004: (pick-up a26 n0 orange)  [1.000]
+6.004: (move a26 n0 n9)  [1.000]
+7.004: (deposite a26 n9 orange)  [1.000]
+8.005: (complete-building a26 n9)  [1.000]

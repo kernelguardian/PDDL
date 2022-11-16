@@ -179,7 +179,6 @@ class Assignment_Agent(Agent):
                                     resource = self.api.get_field('colour',resource_id)
                                     if resource == params[2]:
                                         self.api.deposit_resources(actor_id, site_id, resource_id) 
-                                        self.api.drop_resource(actor_id,resource_id)
         if action == 'complete-building':
             print("complete-building")
             for actor_id, actors in self.world_info['actors'].items():
@@ -189,7 +188,7 @@ class Assignment_Agent(Agent):
                         current_site = self.api.get_field(site_id, "node")
                         if current_node == current_site:
                             self.api.construct_at(actor_id,site_id)
-                            self.api.drop_all_resources(actor_id)
+                            # self.api.drop_all_resources(actor_id)
                             a = self.api.get_world_info()
                             print(a)
 
