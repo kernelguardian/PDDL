@@ -1,3 +1,0 @@
-_XSERVTransmkdir: ERROR: euid != 0,directory /tmp/.X11-unix will not be created.
-(EE) Failed to open authorization file "/tmp/.xas99010302.JZ9HA4": No such file or directory
-_XSERVTransmkdir: ERROR: euid != 0,directory /tmp/.X11-unix will not be created.
