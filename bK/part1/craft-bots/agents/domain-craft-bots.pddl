@@ -15,11 +15,11 @@
 
   (:predicates ;todo: define predicates here
 
-    (actorstate ?actor - actor)
-    (alocation ?actor - actor ?node - location)
+    (actor_state ?actor - actor)
+    (allocation ?actor - actor ?node - location)
     (connects ?nodea - location ?nodeb - location)
 
-    (buildinglocation ?node - location ?actor - actor)
+    (building_location ?node - location ?actor - actor)
     (mining ?actor - actor ?node - location ?resource - resource)
 
     (resource_color ?resource - resource ?actor - actor)
@@ -29,7 +29,7 @@
 
     (deposit_resource ?actor - actor ?resource - resource ?node - location)
 
-    (building_at ?node - location)
+    (building_position ?node - location)
     (building_start ?node - location ?actor - actor)
 
     (actor_free ?actor - actor)
@@ -40,7 +40,7 @@
 
   (:functions ;todo: define numeric functions here
 
-    (r_resource_count ?node - location ?actor - actor)
+    (r_count ?node - location ?actor - actor)
     (total_resource_req ?node - location ?actor - actor)
     (mine_resource ?resource - resource ?node - location ?actor - actor)
 
@@ -54,14 +54,14 @@
     :parameters (?actor - actor ?nodea - location ?nodeb - location)
 
     :precondition (and
-      (actorstate ?actor)
-      (alocation ?actor ?nodea)
+      (actor_state ?actor)
+      (allocation ?actor ?nodea)
       (connects ?nodea ?nodeb)
     )
     :effect (and
-      (not (alocation ?actor ?nodea))
-      (not (alocation ?actor ?nodeb))
-      (alocation ?actor ?nodeb)
+      (not (allocation ?actor ?nodea))
+      (not (allocation ?actor ?nodeb))
+      (allocation ?actor ?nodeb)
 
     )
 
@@ -72,37 +72,36 @@
   (:action start-building
     :parameters (?actor - actor ?node - location)
     :precondition (and
-      (actorstate ?actor)
-      (alocation ?actor ?node)
+      (actor_state ?actor)
+      (allocation ?actor ?node)
       (building_start ?node ?actor)
     )
     :effect (and
       (not (actor_free ?actor))
-      (alocation ?actor ?node)
-      (buildinglocation ?node ?actor)
-      (building_at ?node)
+      (allocation ?actor ?node)
+      (building_location ?node ?actor)
+      (building_position ?node)
       (actor_free ?actor)
     )
 
   )
-
 
   ; action : mine - Function : Actor will mine the resources from the node.
 
   (:action mine
     :parameters (?actor - actor ?node - location ?resource - resource)
     :precondition(and
-      (alocation ?actor ?node)
-      (actorstate ?actor)
+      (allocation ?actor ?node)
+      (actor_state ?actor)
       (r_location ?resource ?node ?actor)
       (resource_color ?resource ?actor)
       (actor_free ?actor)
 
     )
     :effect (and
-      (building_at ?node)
-      (buildinglocation ?node ?actor)
-      (alocation ?actor ?node)
+      (building_position ?node)
+      (building_location ?node ?actor)
+      (allocation ?actor ?node)
       (resource_color ?resource ?actor)
       (r_location ?resource ?node ?actor)
       (mining ?actor ?node ?resource)
@@ -110,14 +109,14 @@
     )
   )
 
-  ; action : pick-up - Function : Actor will pick up the mined resource  from the node.
+  ; action : pick_up - Function : Actor will pick up the mined resource  from the node.
 
-  (:action pick-up
+  (:action pick_up
     :parameters (?actor - actor ?node - location ?resource - resource)
     :precondition(and
 
-      (alocation ?actor ?node)
-      (actorstate ?actor)
+      (allocation ?actor ?node)
+      (actor_state ?actor)
       (r_location ?resource ?node ?actor)
       (resource_color ?resource ?actor)
       (mining ?actor ?node ?resource)
@@ -135,40 +134,40 @@
     )
   )
 
-  ; action : deposite - Function : Actor will deposite the carrying resource on the site node.
+  ; action : deposit - Function : Actor will deposit the carrying resource on the site node.
 
-  (:action deposite
+  (:action deposit
     :parameters (?actor - actor ?node - location ?resource - resource)
     :precondition (and
       (resource_color ?resource ?actor)
       (carry ?actor ?resource)
-      (alocation ?actor ?node)
-      (actorstate ?actor)
+      (allocation ?actor ?node)
+      (actor_state ?actor)
     )
     :effect (and
       (not (actor_free ?actor))
       (actor_free ?actor)
       (deposit_resource ?actor ?resource ?node)
       (not (carry ?actor ?resource))
-      (increase (r_resource_count ?node ?actor) 1)
+      (increase (r_count ?node ?actor) 1)
     )
 
   )
 
-  ; action : complete-building - Function : Once resources conditions are stisfied, actor will cnstruct -
+  ; action : complete_building - Function : Once resources conditions are stisfied, actor will cnstruct -
   ;building on the site node.
 
-  (:action complete-building
+  (:action complete_building
     :parameters (?actor - actor ?node - location)
     :precondition (and
-      (actorstate ?actor)
-      (actorstate ?actor)
-      (>=(r_resource_count ?node ?actor)(total_resource_req ?node ?actor))
+      (actor_state ?actor)
+      (actor_state ?actor)
+      (>=(r_count ?node ?actor)(total_resource_req ?node ?actor))
 
     )
     :effect (and
       (construct_building ?node ?actor)
-      (not (actorstate ?actor))
+      (not (actor_state ?actor))
     )
   )
 

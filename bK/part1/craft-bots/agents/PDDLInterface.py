@@ -5,7 +5,7 @@ import requests
 class PDDLInterface:
 
     COLOURS = ['red', 'blue', 'orange', 'black', 'green']
-    ACTIONS = ['move', 'mine', 'pick-up', 'drop', 'start-building', 'deposit', 'complete-building']
+    ACTIONS = ['move', 'mine', 'pick_up', 'drop', 'start-building', 'deposit', 'complete_building']
 
     @staticmethod
     # Function to write a problem file
@@ -33,10 +33,10 @@ class PDDLInterface:
 
             f.write("(:init\n")
             for actor in world_info['actors']:
-                f.write("(actorstate a"+str(actor)+")\n") 
+                f.write("(actor_state a"+str(actor)+")\n") 
 
             for actor in world_info['actors']:
-                f.write("(alocation a"+str(actor)+" n"+str(world_info['actors'][actor]['node'])+")\n")
+                f.write("(allocation a"+str(actor)+" n"+str(world_info['actors'][actor]['node'])+")\n")
             actor_list = []
 
             for d1 in world_info['actors']:
@@ -129,7 +129,7 @@ class PDDLInterface:
             for d1 in world_info['tasks']:
                 building_list.append(world_info['tasks'][d1]['node']) 
             for actor,bid in zip(actor_list,building_list):
-                f.write("(=(r_resource_count n"+str(bid)+" a"+str(actor)+")0"+")\n")
+                f.write("(=(r_count n"+str(bid)+" a"+str(actor)+")0"+")\n")
                 
             building_list = []
             resource_list = []  
@@ -159,7 +159,7 @@ class PDDLInterface:
                 building_list.append(world_info['tasks'][d1]['node']) 
             # f.write(str(building_dict))  
             # for actor,bid in zip(actor_list,building_list):
-            #     f.write("(buildinglocation n"+str(bid)+" a"+str(actor)+")\n")
+            #     f.write("(building_location n"+str(bid)+" a"+str(actor)+")\n")
 
             for bid,a in zip(building_list,actor_list):
                 f.write("(construct_building n"+str(bid)+" a"+str(a)+")\n")

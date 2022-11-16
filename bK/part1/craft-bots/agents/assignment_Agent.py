@@ -154,7 +154,7 @@ class Assignment_Agent(Agent):
                         if mine_node == current_node:
                             self.api.dig_at(actor_id,mine_id)
   
-        if action == 'pick-up':
+        if action == 'pick_up':
             print("PICK UP")
             for actor_id, actors in self.world_info['actors'].items():
                 if actor_id == params[0]:
@@ -165,8 +165,8 @@ class Assignment_Agent(Agent):
                             resource_colour = self.api.get_field(resource_id,'colour')
                             if resource_colour == params[2]:
                                 self.api.pick_up_resource(actor_id,resource_id)
-        if action == 'deposite':
-            print("DEPOSITE")
+        if action == 'deposit':
+            print("deposit")
             for actor_id, actors in self.world_info['actors'].items():
                 if actor_id == params[0]:
                     current_node = self.api.get_field(actor_id, "node")
@@ -179,8 +179,8 @@ class Assignment_Agent(Agent):
                                     resource = self.api.get_field('colour',resource_id)
                                     if resource == params[2]:
                                         self.api.deposit_resources(actor_id, site_id, resource_id) 
-        if action == 'complete-building':
-            print("complete-building")
+        if action == 'complete_building':
+            print("complete_building")
             for actor_id, actors in self.world_info['actors'].items():
                 if actor_id == params[0]:
                     current_node = self.api.get_field(actor_id, "node")
