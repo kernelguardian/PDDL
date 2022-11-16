@@ -5,14 +5,11 @@ import requests
 class PDDLInterface:
 
     COLOURS = ['red', 'blue', 'orange', 'black', 'green']
-    ACTIONS = ['move', 'mine', 'pick-up', 'drop', 'start-building', 'deposit', 'complete-building']
+    ACTIONS = ['move', 'mine', 'pick-up', 'drop', 'start_construction', 'deposit', 'complete_construction']
 
     @staticmethod
-    # Function to write a problem file
-    # Complete this function
 
     def writeProblem(world_info, file="agents/problem.pddl"):
-        # Function that will
 
         with open(file, "w") as f:
             f.write("(define(problem craft-bots-problem)\n")
@@ -33,10 +30,10 @@ class PDDLInterface:
 
             f.write("(:init\n")
             for actor in world_info['actors']:
-                f.write("(actorstate a"+str(actor)+")\n") 
+                f.write("(actor_state a"+str(actor)+")\n") 
 
             for actor in world_info['actors']:
-                f.write("(alocation a"+str(actor)+" n"+str(world_info['actors'][actor]['node'])+")\n")
+                f.write("(a_loc a"+str(actor)+" n"+str(world_info['actors'][actor]['node'])+")\n")
             actor_list = []
 
             for d1 in world_info['actors']:
@@ -75,7 +72,7 @@ class PDDLInterface:
             combo_list = []
             for m in  world_info['mines']:
                 for actor in actor_list:
-                    f.write("(r_location ")
+                    # f.write("(r_location ")
                     colour = ''
                     if world_info['mines'][m]['colour'] == 0:
                         colour = 'red'
@@ -86,9 +83,41 @@ class PDDLInterface:
                     if world_info['mines'][m]['colour'] == 3:
                         colour = 'black'
                     if world_info['mines'][m]['colour'] == 4:
-                        colour = 'green' 
-                    f.write(str(colour)+" n"+str(world_info['mines'][m]['node'])+" a"+str(actor)+")\n")
-                    combo_list.append("(mine_resource "+str(colour)+" n"+str(world_info['mines'][m]['node'])+" a"+str(actor)+")")  
+                        colour = 'green'
+                    if colour == 'red':
+                        f.write("(at 1(r_location ")
+                        f.write(str(colour)+" n"+str(world_info['mines'][m]['node'])+" a"+str(actor)+"))\n")
+                        f.write("(at 40(not(r_location ")
+                        f.write(str(colour)+" n"+str(world_info['mines'][m]['node'])+" a"+str(actor)+")))\n")
+                    else:
+                        f.write("(r_location ")
+                        f.write(str(colour)+" n"+str(world_info['mines'][m]['node'])+" a"+str(actor)+")\n")
+                        combo_list.append("(mine_resource "+str(colour)+" n"+str(world_info['mines'][m]['node'])+" a"+str(actor)+")")  
+
+            for m in  world_info['mines']: 
+                colour = ''
+                if world_info['mines'][m]['colour'] == 0:
+                    colour = 'red'
+                    f.write("(=(mine_duration "+str(colour)+")1)\n")
+                if world_info['mines'][m]['colour'] == 1:
+                    colour = 'blue'
+                    f.write("(=(mine_duration "+str(colour)+")3)\n")
+                if world_info['mines'][m]['colour'] == 2:
+                    colour = 'orange'
+                    f.write("(=(mine_duration "+str(colour)+")1)\n")
+                if world_info['mines'][m]['colour'] == 3:
+                    colour = 'black'
+                    f.write("(=(mine_duration "+str(colour)+")1)\n")
+                if world_info['mines'][m]['colour'] == 4:
+                    colour = 'green'
+                    f.write("(=(mine_duration "+str(colour)+")1)\n")
+
+                # if colour == 'blue':
+
+                #     f.write("(=(mine_duration "+str(colour)+")3)\n")
+                # else:
+                #     f.write("(=(mine_duration "+str(colour)+")1)\n")
+
             
             resource_list = []
             for key, val in world_info['tasks'].items():

@@ -135,7 +135,7 @@ class Assignment_Agent(Agent):
             print("Move Action Executing!!")
             self.api.move_to(params[0],params[2])
 
-        if action == 'start-building':
+        if action == 'start_construction':
             print("Start Building")
             for actor_id, actors in self.world_info['actors'].items():
                 if actor_id == params[0]:
@@ -165,8 +165,8 @@ class Assignment_Agent(Agent):
                             resource_colour = self.api.get_field(resource_id,'colour')
                             if resource_colour == params[2]:
                                 self.api.pick_up_resource(actor_id,resource_id)
-        if action == 'deposite':
-            print("DEPOSITE")
+        if action == 'deposit':
+            print("deposit")
             for actor_id, actors in self.world_info['actors'].items():
                 if actor_id == params[0]:
                     current_node = self.api.get_field(actor_id, "node")
@@ -179,8 +179,9 @@ class Assignment_Agent(Agent):
                                     resource = self.api.get_field('colour',resource_id)
                                     if resource == params[2]:
                                         self.api.deposit_resources(actor_id, site_id, resource_id) 
-        if action == 'complete-building':
-            print("complete-building")
+                                        self.api.drop_resource(actor_id,resource_id)
+        if action == 'complete_construction':
+            print("complete_construction")
             for actor_id, actors in self.world_info['actors'].items():
                 if actor_id == params[0]:
                     current_node = self.api.get_field(actor_id, "node")
@@ -188,7 +189,7 @@ class Assignment_Agent(Agent):
                         current_site = self.api.get_field(site_id, "node")
                         if current_node == current_site:
                             self.api.construct_at(actor_id,site_id)
-                            # self.api.drop_all_resources(actor_id)
+                            self.api.drop_all_resources(actor_id)
                             a = self.api.get_world_info()
                             print(a)
 
