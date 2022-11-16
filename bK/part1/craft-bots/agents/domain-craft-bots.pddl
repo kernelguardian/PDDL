@@ -7,38 +7,28 @@
   ;remove requirements that are not needed
   (:requirements :strips :equality :typing :conditional-effects :fluents :duration-inequalities :timed-initial-literals)
 
-  (:types ;todo: enumerate types and their hierarchy here, e.g. car truck bus - vehicle
-
+  (:types
     actor resource node
-
   )
 
-  (:predicates ;todo: define predicates here
-
+  (:predicates
     (actor_state ?actor - actor)
     (allocation ?actor - actor ?node - location)
     (connects ?nodea - location ?nodeb - location)
-
     (building_location ?node - location ?actor - actor)
     (mining ?actor - actor ?node - location ?resource - resource)
-
     (resource_color ?resource - resource ?actor - actor)
     (r_location ?resource - resource ?node - location ?actor - actor)
-
     (carry ?actor - actor ?resource - resource)
-
     (deposit_resource ?actor - actor ?resource - resource ?node - location)
-
     (building_position ?node - location)
     (building_start ?node - location ?actor - actor)
-
     (actor_free ?actor - actor)
-
     (construct_building ?node - location ?actor - actor)
 
   )
 
-  (:functions ;todo: define numeric functions here
+  (:functions
 
     (r_count ?node - location ?actor - actor)
     (total_resource_req ?node - location ?actor - actor)
@@ -46,11 +36,8 @@
 
   )
 
-  ;define actions here
-
-  ; action : move - Function : To move actors between nodes
-
-  (:action move
+  ; Action to move actors between nodes 
+  (:action move_actors
     :parameters (?actor - actor ?nodea - location ?nodeb - location)
 
     :precondition (and
@@ -67,9 +54,9 @@
 
   )
 
-  ; action : start-building - Function : Actor will create the site for the building on the node.
+  ; action : create_building - Function : Actor will create the site for the building on the node.
 
-  (:action start-building
+  (:action create_building
     :parameters (?actor - actor ?node - location)
     :precondition (and
       (actor_state ?actor)

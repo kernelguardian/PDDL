@@ -5,7 +5,7 @@ import requests
 class PDDLInterface:
 
     COLOURS = ['red', 'blue', 'orange', 'black', 'green']
-    ACTIONS = ['move', 'mine', 'pick_up', 'drop', 'start-building', 'deposit', 'complete_building']
+    ACTIONS = ['move_actors', 'mine', 'pick_up', 'drop', 'create_building', 'deposit', 'complete_building']
 
     @staticmethod
     # Function to write a problem file
