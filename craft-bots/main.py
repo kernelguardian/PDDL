@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
     # parse command line arguments
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('-f', help="configuration file", type=str, default='craftbots/config/simple_configuration.yaml')
+    arg_parser.add_argument('-f', help="configuration file", type=str, default='/Users/fluffyunicorn/Downloads/devcontainer/craft-bots/craftbots/config/simple_configuration.yaml')
     args = arg_parser.parse_args()
 
     # Simulation

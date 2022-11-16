@@ -65,7 +65,7 @@ class CraftBotsGUI:
 
         # load font
         with dpg.font_registry():
-            dpg.bind_font(dpg.add_font("resources/fonts/Roboto_Mono/static/RobotoMono-Regular.ttf", 20))
+            # dpg.bind_font(dpg.add_font("resources/fonts/Roboto_Mono/static/RobotoMono-Regular.ttf", 20))
             dpg.set_global_font_scale(1.0)
 
         dpg.set_viewport_width(self.WINDOW_WIDTH)
