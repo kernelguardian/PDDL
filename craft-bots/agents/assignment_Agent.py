@@ -86,7 +86,7 @@ class Assignment_Agent(Agent):
                 PDDLInterface.generatePlan("/Users/fluffyunicorn/Downloads/devcontainer/domain-craft-bots.pddl", "/Users/fluffyunicorn/Downloads/devcontainer/problem.pddl", "/Users/fluffyunicorn/Downloads/devcontainer/problem.pddl", verbose=True)
 
                 # Read the plan (completed)
-                self.plan = PDDLInterface.readPDDLPlan('agents/plan.pddl')
+                self.plan = PDDLInterface.readPDDLPlan('/Users/fluffyunicorn/Downloads/devcontainer/plan.pddl')
 
                 # Set agent to be executing a plan
                 self.state = Assignment_Agent.STATE.EXECUTING
