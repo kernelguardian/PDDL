@@ -2,6 +2,7 @@ import argparse
 from agents.rule_based_agent import RBAgent
 from craftbots.simulation import Simulation
 from gui.main_window import CraftBotsGUI
+from agents import assignment_Agent
 
 if __name__ == '__main__':
 
@@ -15,7 +16,9 @@ if __name__ == '__main__':
 
     # agent
     agent = RBAgent()
-    sim.agents.append(agent)
+    # sim.agents.append(agent)
+    sim.agents.append(assignment_Agent)
+
 
     # GUI
     gui = CraftBotsGUI(sim)
